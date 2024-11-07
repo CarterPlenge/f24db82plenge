@@ -4,9 +4,19 @@ block content
   h1= title
   p Each boat has the attributes Type, Width, Height, and Length.
 
-  each boat in boats
-    div.card(style="margin: 1em; padding: 1em; border: 1px solid #ddd")
-      h2= boat.Type
-      p Width: #{boat.width} meters
-      p Height: #{boat.height} meters
-      p Length: #{boat.length} meters
+  -
+    let results = [
+      { Type: "Sailboat", width: 3, height: 10, length: 30 },
+      { Type: "Motorboat", width: 5, height: 12, length: 40 },
+      { Type: "Rowboat", width: 2, height: 4, length: 15 }
+    ];
+
+  .container-fluid
+    .row
+      each boat in results
+        .col-sm-2
+          div.card(style="padding: 1em; margin: 1em; border: 1px solid #ddd")
+            h2= boat.Type
+            p Width: #{boat.width} meters
+            p Height: #{boat.height} meters
+            p Length: #{boat.length} meters

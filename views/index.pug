@@ -6,6 +6,8 @@ block content
   button(type="button", class="btn btn-secondary", onclick="boost()") Sample Button
   div#boost Increase value
 
+  a(href="/boat") View Boat Search Results
+
   script.
     let value = 0;
     let amt = 3;
@@ -15,3 +17,4 @@ block content
       value += amt;
       document.getElementById('boost').innerText = `Boosted ${value} by ${amt}`;
     }
+
