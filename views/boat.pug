@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  p Each boat has the attributes Type, Width, Height, and Length.
+
+  each boat in boats
+    div.card(style="margin: 1em; padding: 1em; border: 1px solid #ddd")
+      h2= boat.Type
+      p Width: #{boat.width} meters
+      p Height: #{boat.height} meters
+      p Length: #{boat.length} meters
