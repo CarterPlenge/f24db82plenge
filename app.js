@@ -32,9 +32,6 @@ async function recreateDB(){
 let reseed = true;
 if (reseed) {recreateDB();}
 
-
-
-
 require('dotenv').config();
 const connectionString = process.env.MONGO_CON
 mongoose = require('mongoose');
@@ -68,7 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/boat', boatRouter);
+app.use('/boats', boatRouter);
 app.use('/grid', gridRouter);
 app.use('/selector', pickRouter);
 app.use('/resource', resourceRouter);
