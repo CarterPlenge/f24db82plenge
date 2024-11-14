@@ -4,6 +4,49 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var Boat = require("./models/boat");
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+// Delete everything
+  await Boat.deleteMany();
+  let instance1 = new
+  Boat({Type:"Sail", width:10, height:15, length:35});
+  instance1.save()
+    .then(doc=>{ console.log("First object saved")})
+    .catch(err=>{console.error(err)});
+
+  let instance2 = new
+  Boat({Type:"Row", width:3, height:3, length:12});
+  instance2.save()
+    .then(doc=>{ console.log("Second object saved")})
+    .catch(err=>{console.error(err)});
+
+  let instance3 = new
+  Boat({Type:"Fishing", width:5, height:4, length:16});
+  instance3.save()
+    .then(doc=>{ console.log("Third object saved")})
+    .catch(err=>{console.error(err)});
+}
+
+let reseed = true;
+if (reseed) {recreateDB();}
+
+
+
+
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var boatRouter = require('./routes/boat');
