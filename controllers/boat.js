@@ -65,7 +65,7 @@ exports.boat_update_put = async function(req, res) {
     try {
         let toUpdate = await Boat.findById( req.params.id)
         // Do updates of properties
-        if(req.body.Type) toUpdate.boat_type = req.body.Type;
+        if(req.body.Type) toUpdate.Type = req.body.Type;
         if(req.body.width) toUpdate.width = req.body.width;
         if(req.body.height) toUpdate.height = req.body.height;
         if(req.body.length) toUpdate.length = req.body.length;
@@ -74,7 +74,6 @@ exports.boat_update_put = async function(req, res) {
         res.send(result)
     } catch (err) {
         res.status(500)
-        res.send(`{"error": ${err}: Update for id ${req.params.id}
-        failed`);
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
     }
 };
