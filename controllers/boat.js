@@ -43,9 +43,16 @@ exports.boat_view_all_Page = async function (req, res) {
     }
 };
 
-exports.boat_detail = function (req, res) {
-    res.send('NOT IMPLEMENTED: Boat detail: ' + req.params.id);
-};
+exports.boat_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await Boat.findById( req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+    };
 
 // Handle Boat delete on DELETE
 exports.boat_delete = function (req, res) {
@@ -53,6 +60,21 @@ exports.boat_delete = function (req, res) {
 };
 
 // Handle Boat update on PUT
-exports.boat_update_put = function (req, res) {
-    res.send('NOT IMPLEMENTED: Boat update PUT ' + req.params.id);
+exports.boat_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body${JSON.stringify(req.body)}`)
+    try {
+        let toUpdate = await Boat.findById( req.params.id)
+        // Do updates of properties
+        if(req.body.Type) toUpdate.boat_type = req.body.Type;
+        if(req.body.width) toUpdate.width = req.body.width;
+        if(req.body.height) toUpdate.height = req.body.height;
+        if(req.body.length) toUpdate.length = req.body.length;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
+        failed`);
+    }
 };
