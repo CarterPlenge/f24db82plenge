@@ -52,7 +52,7 @@ exports.boat_detail = async function(req, res) {
         res.status(500)
         res.send(`{"error": document for id ${req.params.id} not found`);
     }
-    };
+};
 
 // Handle Boat delete on DELETE
 exports.boat_delete = function (req, res) {
