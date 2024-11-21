@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1= title
+
     if (toShow == null)
         h2 No instance to delete
     else
@@ -11,27 +12,28 @@ block content
         - let boatHeight = toShow.height
         - let boatLength = toShow.length
         - let actionid = "/boats/" + boatid
-        script let actionid = "#{actionid}"
-        
-        div
-            div.row
-                div(class='boatAttr mr-3') Boat ID is:
+
+        div(class="container mt-4 p-3 border rounded shadow-sm bg-light")
+            h2 Boat Details
+            div.row.mb-2
+                div(class='boatAttr font-weight-bold mr-3') Boat ID:
                 div #{boatid}
-            div.row
-                div(class='boatAttr mr-3') Boat Type is:
+            div.row.mb-2
+                div(class='boatAttr font-weight-bold mr-3') Boat Type:
                 div #{boatType}
-            div.row
-                div(class='boatAttr mr-3') Boat Width is:
+            div.row.mb-2
+                div(class='boatAttr font-weight-bold mr-3') Boat Width:
                 div #{boatWidth}
-            div.row
-                div(class='boatAttr mr-3') Boat Height is:
+            div.row.mb-2
+                div(class='boatAttr font-weight-bold mr-3') Boat Height:
                 div #{boatHeight}
-            div.row
-                div(class='boatAttr mr-3') Boat Length is:
+            div.row.mb-2
+                div(class='boatAttr font-weight-bold mr-3') Boat Length:
                 div #{boatLength}
 
-        button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
-        button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+        div(class="mt-4 text-center")
+            button(class="btn btn-danger mx-2 px-4" onclick="deleteOnid()") Delete
+            button(class="btn btn-secondary mx-2 px-4" onclick="cancel()") Cancel
 
     script.
         function cancel() {
