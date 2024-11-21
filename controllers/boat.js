@@ -55,8 +55,16 @@ exports.boat_detail = async function(req, res) {
 };
 
 // Handle Boat delete on DELETE
-exports.boat_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: Boat delete DELETE ' + req.params.id);
+exports.boat_delete = async function (req, res) {
+    console.log("delete " + req.params.id)
+    try {
+        result = await Boat.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
 };
 
 // Handle Boat update on PUT
@@ -77,3 +85,17 @@ exports.boat_update_put = async function(req, res) {
         res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
     }
 };
+
+
+// Handle a show one view with id specified by query
+exports.boat_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+        result = await Boat.findById( req.query.id)
+        res.render('boatdetail', { title: 'Boat Detail', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+    };
