@@ -50,6 +50,7 @@ var boatRouter = require('./routes/boat');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
 var resourceRouter = require('./routes/resource');
+var boatRoutes = require('./routes/boat');
 
 var app = express();
 
@@ -69,6 +70,7 @@ app.use('/boats', boatRouter);
 app.use('/grid', gridRouter);
 app.use('/selector', pickRouter);
 app.use('/resource', resourceRouter);
+app.use('/boats', boatRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

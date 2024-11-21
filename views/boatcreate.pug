@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    h1= title
+    form(id='boatForm', action="/resource/boats", method="POST")
+        div.form-group
+            label.boatAttr(for='Type') Boat Type
+            input#boat_type(type='text', name='Type')
+        div.form-group
+            label.boatAttr(for='width') Boat Width
+            input#width(type='number', name='width')
+        div.form-group
+            label.boatAttr(for='height') Boat Height
+            input#height(type='number', name='height')
+        div.form-group
+            label.boatAttr(for='length') Boat Length
+            input#length(type='number', name='length')
+        input(type="submit")
+
+    script.
+        document.forms['boatForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+                method: 'POST',
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+                return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Save succeeded: " + JSON.stringify(body));
+                // TODO handle body (response from the server)
+            }).catch((error) => {
+                // TODO handle error
+                alert("Save failed: " + error);
+            });
+        });

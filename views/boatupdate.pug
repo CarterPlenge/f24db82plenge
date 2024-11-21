@@ -1,0 +1,46 @@
+extends layout
+block content
+    h1= title
+    - let boatid = toShow._id
+    - let boatType = toShow.Type
+    - let boatWidth = toShow.width
+    - let boatHeight = toShow.height
+    - let boatLength = toShow.length
+    
+    div.row(class='mb-2')
+        div.mr-1 ID is
+        div #{boatid}
+        - let actionid = "/boats/" + boatid
+    form(id='BoatForm', action= actionid, method="PUT")
+        div.form-group
+            label.boatAttr(for='Type') Boat Type
+            input#Type(type='text', name='Type', value= boatType)
+        div.form-group
+            label.boatAttr(for='width') Boat Width
+            input#width(type='number', name='width', value= boatWidth)
+        div.form-group
+            label.boatAttr(for='height') Boat Height
+            input#height(type='number', name='height', value= boatHeight)
+        div.form-group
+            label.boatAttr(for='length') Boat Length
+            input#length(type='number', name='length', value= boatLength)
+        input(type="submit")
+
+    script.
+        document.forms['BoatForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // Provide user feedback during form submission
+            fetch(event.target.action, {
+                method: 'PUT',
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+                return resp.json(); // Handle the server's JSON response
+            }).then((body) => {
+                alert("Update succeeded");
+                // Handle body if necessary
+                console.log(body);
+            }).catch((error) => {
+                // Handle error gracefully
+                alert("Update failed: " + error);
+            });
+        });

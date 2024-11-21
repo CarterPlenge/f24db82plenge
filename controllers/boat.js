@@ -86,7 +86,7 @@ exports.boat_update_put = async function(req, res) {
     }
 };
 
-
+/*
 // Handle a show one view with id specified by query
 exports.boat_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
@@ -98,4 +98,49 @@ exports.boat_view_one_Page = async function(req, res) {
         res.status(500)
         res.send(`{'error': '${err}'}`);
     }
-    };
+*/
+exports.boat_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id);  // Log the ID received
+    try {
+        const result = await Boat.findById(req.query.id);  // Query the DB
+        console.log("Query result: ", result);  // Log the result of the query
+        if (!result) {
+            // Handle case where no boat was found
+            res.status(404).send('Boat not found');
+            return;
+        }
+        res.render('boatdetail', { title: 'Boat Detail', toShow: result });
+    } catch (err) {
+        console.error("Error fetching boat: ", err);  // Log the error for debugging
+        res.status(500);
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for creating a boat.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.boat_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+        res.render('boatcreate', { title: 'Boat Create'});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for updating a boat.
+// query provides the id
+exports.boat_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+        let result = await Boat.findById(req.query.id)
+        res.render('boatupdate', { title: 'Boat Update', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};

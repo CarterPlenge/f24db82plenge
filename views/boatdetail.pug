@@ -1,26 +1,27 @@
 extends layout
 
 block content
-h1= title
+    h1= title
 
-- let boatid = toShow._id
-- let boat_Type = toShow.boat_Type
-- let boatwidth = toShow.width
-- let boatheight = toShow.height
-- let boatlength = toShow.length
+    - let boatid = toShow._id
+    - let boat_Type = toShow.Type
+    - let boatwidth = toShow.width
+    - let boatheight = toShow.height
+    - let boatlength = toShow.length
 
-div
-div.row
-div(class='boatAttr mr-3') boat ID is:
-div #{boatid}
-div.row
-div(class='boatAttr mr-3') boat Type is:
-div #{boat_Type}
-div.row
-div(class='boatAttr mr-3') boat Size is:
-div #{boatheight}
-div.row
-div(class='boatAttr mr-3') boat Cost is:
-div #{boatheight}
-div(class='boatAttr mr-3') boat Cost is:
-div #{boatlength}
+    div
+        div.row
+            div(class='boatAttr mr-3') boat ID is:
+            div #{boatid}
+        div.row
+            div(class='boatAttr mr-3') boat Type is:
+            div #{boat_Type}
+        div.row
+            div(class='boatAttr mr-3') boat width is:
+            div #{boatwidth}
+        div.row
+            div(class='boatAttr mr-3') boat height is:
+            div #{boatheight}
+        div.row
+            div(class='boatAttr mr-3') boat length is:
+            div #{boatlength}
