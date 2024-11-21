@@ -1,0 +1,56 @@
+extends layout
+
+block content
+    h1= title
+    if (toShow == null)
+        h2 No instance to delete
+    else
+        - let boatid = toShow._id
+        - let boatType = toShow.Type
+        - let boatWidth = toShow.width
+        - let boatHeight = toShow.height
+        - let boatLength = toShow.length
+        - let actionid = "/boats/" + boatid
+        script let actionid = "#{actionid}"
+        
+        div
+            div.row
+                div(class='boatAttr mr-3') Boat ID is:
+                div #{boatid}
+            div.row
+                div(class='boatAttr mr-3') Boat Type is:
+                div #{boatType}
+            div.row
+                div(class='boatAttr mr-3') Boat Width is:
+                div #{boatWidth}
+            div.row
+                div(class='boatAttr mr-3') Boat Height is:
+                div #{boatHeight}
+            div.row
+                div(class='boatAttr mr-3') Boat Length is:
+                div #{boatLength}
+
+        button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+        button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+    script.
+        function cancel() {
+            // Redirect back to the boat collection page
+            window.location.href = '/boats';
+        }
+
+    script.
+        function deleteOnid() {
+            console.log("Starting delete");
+            // Perform the DELETE request
+            fetch(actionid, {
+                method: 'DELETE' // DELETE does not require a body
+            }).then((resp) => {
+                return resp.json(); // Handle the response
+            }).then((body) => {
+                alert("Delete succeeded");
+                window.location.href = '/boats';
+            }).catch((error) => {
+                alert("Delete failed: " + error);
+            });
+        }

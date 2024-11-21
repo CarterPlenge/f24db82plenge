@@ -98,6 +98,8 @@ exports.boat_view_one_Page = async function(req, res) {
         res.status(500)
         res.send(`{'error': '${err}'}`);
     }
+
+};
 */
 exports.boat_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id);  // Log the ID received
@@ -138,6 +140,19 @@ exports.boat_update_Page = async function(req, res) {
     try{
         let result = await Boat.findById(req.query.id)
         res.render('boatupdate', { title: 'Boat Update', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle a delete one view with id from query
+exports.boat_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+        result = await Boat.findById(req.query.id)
+        res.render('boatdelete', { title: 'Boat Delete', toShow: result});
     }
     catch(err){
         res.status(500)
