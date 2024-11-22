@@ -4,15 +4,19 @@ block content
   h1= title
   p Each boat has the attributes Type, Width, Height, and Length.
 
-  -
-    let items = results
+  - let items = results
+  div(class="container-fluid")
+    div(class="row m-1")
+      each item in items
+        - let destination = `dispatch('/boats/update?id=${item._id}')`
+        div(class="row-sm-2", class="m-1") Boat Specs: 
+          div(class="row-sm-2", class="m-1") Type: #{item.Type}
+          div(class="row-sm-2", class="m-1") Width: #{item.width} 
+          div(class="row-sm-2", class="m-1") Height: #{item.height} 
+          div(class="row-sm-2", class="m-1") Length: #{item.length}
+          button.btn(class="btn-primary ml-1", onclick=destination) Update
 
-  .container-fluid
-    .row
-      each boat in items
-        .col-sm-2
-          div.card(style="padding: 1em; margin: 1em; border: 1px solid #ddd")
-            h2= boat.Type
-            p Width: #{boat.width} meters
-            p Height: #{boat.height} meters
-            p Length: #{boat.length} meters
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }
