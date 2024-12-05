@@ -3,6 +3,8 @@ var passport = require('passport');
 var router = express.Router();
 var Account = require('../models/account');
 
+
+
 router.get('/', function (req, res) {
  res.render('index', { title: 'Boat App', user : req.user });
 });
